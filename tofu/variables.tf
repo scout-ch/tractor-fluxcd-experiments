@@ -1,0 +1,10 @@
+variable "github_org" {
+  description = "GitHub organization"
+  type        = string
+  default     = "scout-ch"
+}
+
+variable "github_repository" {
+  description = "GitHub repository"
+  type        = string
+}
