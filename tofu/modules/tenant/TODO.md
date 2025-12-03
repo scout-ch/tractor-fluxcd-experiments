@@ -1,0 +1,6 @@
+- [ ] create ssh key secret with terraform
+- [ ] create gitRepo crd & kustomizationcrd for tenant
+    - [ ] reference secretRef
+- [ ] create rbac (incl. namespace) for tenant
+- [ ] create user
+- [ ] create webhook config and configure on repo

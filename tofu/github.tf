@@ -15,3 +15,34 @@ resource "github_repository_deploy_key" "this" {
   key        = tls_private_key.flux.public_key_openssh
   read_only  = "false"
 }
+
+// TODO: move to module
+
+resource "tls_private_key" "mova_erinnerungsbuch" {
+  algorithm = "ED25519"
+}
+
+data "github_ssh_keys" "this" {}
+
+resource "kubernetes_secret" "mova_erinnerungsbuch" {
+  metadata {
+    name      = "mova-erinnerungsbuch"
+    namespace = "mova-erinnerungsbuch"
+  }
+
+  type = "Opaque"
+
+  data = {
+    identity       = tls_private_key.mova_erinnerungsbuch.private_key_pem
+    "identity.pub" = tls_private_key.mova_erinnerungsbuch.public_key_openssh
+    known_hosts    = join("\n", [for key in data.github_ssh_keys.this.keys : "github.com ${key}"])
+  }
+}
+
+resource "github_repository_deploy_key" "mova_erinnerungsbuch" {
+  title      = "Flux"
+  repository = "mova-erinnerungsbuch.ch"
+  key        = tls_private_key.mova_erinnerungsbuch.public_key_openssh
+  read_only  = "true"
+}
+

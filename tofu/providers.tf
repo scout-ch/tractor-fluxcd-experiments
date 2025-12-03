@@ -16,3 +16,10 @@ provider "flux" {
 provider "github" {
   owner = var.github_org
 }
+
+provider "kubernetes" {
+  host                   = local.k8s_config_current_context_cluster.server
+  client_certificate     = base64decode(local.k8s_config_current_context_user.client-certificate-data)
+  client_key             = base64decode(local.k8s_config_current_context_user.client-key-data)
+  cluster_ca_certificate = base64decode(local.k8s_config_current_context_cluster.certificate-authority-data)
+}
