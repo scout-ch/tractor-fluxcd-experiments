@@ -3,23 +3,28 @@ provider "infomaniak" {
 }
 
 provider "flux" {
-  kubernetes = local.k8s_config
+  kubernetes = {
+    host                   = module.flux_cluster.k8s_config.host
+    client_certificate     = module.flux_cluster.k8s_config.client_certificate
+    client_key             = module.flux_cluster.k8s_config.client_key
+    cluster_ca_certificate = module.flux_cluster.k8s_config.cluster_ca_certificate
+  }
   git = {
-    url = "ssh://git@github.com/${var.github_org}/${var.github_repository}.git"
+    url = "ssh://git@github.com/${module.flux_cluster.config_repository_full_name}.git"
     ssh = {
       username    = "git"
-      private_key = tls_private_key.flux.private_key_pem
+      private_key = module.flux_cluster.flux_private_key
     }
   }
 }
 
 provider "github" {
-  owner = var.github_org
+  owner = "scout-ch"
 }
 
 provider "kubernetes" {
-  host                   = local.k8s_config_current_context_cluster.server
-  client_certificate     = base64decode(local.k8s_config_current_context_user.client-certificate-data)
-  client_key             = base64decode(local.k8s_config_current_context_user.client-key-data)
-  cluster_ca_certificate = base64decode(local.k8s_config_current_context_cluster.certificate-authority-data)
+  host                   = module.flux_cluster.k8s_config.host
+  client_certificate     = module.flux_cluster.k8s_config.client_certificate
+  client_key             = module.flux_cluster.k8s_config.client_key
+  cluster_ca_certificate = module.flux_cluster.k8s_config.cluster_ca_certificate
 }

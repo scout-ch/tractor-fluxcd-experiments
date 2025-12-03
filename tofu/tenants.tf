@@ -2,6 +2,10 @@ module "t_pbs_taiga" {
   source = "./modules/tenant"
 
   tenant_name               = "pbs-taiga"
-  github_org                = var.github_org
-  cluster_config_repository = github_repository.this.name
+  cluster_config_repository = module.flux_cluster.config_repository
+  instance_pool             = "pck-oop98fs-pzm"
+
+  users = {
+    "clever-pbs-taiga" = module.u_clever.unique_username
+  }
 }

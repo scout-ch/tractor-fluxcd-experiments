@@ -2,14 +2,13 @@ resource "github_repository" "this" {
   name        = local.github_repository_name
   description = "FluxCD config repository for tenant ${var.tenant_name} on shared K8s cluster of Tractor"
   visibility  = "private"
-  auto_init   = true # This is extremely important as flux_bootstrap_git will not work without a repository that has been initialised
 }
+
+// TODO: Bootstrap repo with initial content
 
 resource "tls_private_key" "this" {
   algorithm = "ED25519"
 }
-
-data "github_ssh_keys" "this" {}
 
 resource "github_repository_deploy_key" "mova_erinnerungsbuch" {
   title      = "Flux"
@@ -28,5 +27,6 @@ resource "github_repository_file" "this" {
     namespace                    = local.kubernetes_namespace
     default_service_account_name = local.default_service_account_name
     git_repository_crd_name      = local.git_repository_crd_name
+    instance_pool                = var.instance_pool
   })
 }

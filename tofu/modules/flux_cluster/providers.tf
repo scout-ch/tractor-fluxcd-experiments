@@ -1,7 +1,4 @@
 terraform {
-  backend "pg" {
-    conn_str = "postgres://tractor-fluxcd-experiments-tf@postgres.tractor.scout.ch:5432/tractor-fluxcd-experiments-tf?sslmode=disable"
-  }
   required_providers {
     infomaniak = {
       source  = "Infomaniak/infomaniak"

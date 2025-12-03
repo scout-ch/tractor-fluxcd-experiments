@@ -1,9 +1,3 @@
-variable "github_org" {
-  description = "GitHub organization"
-  type        = string
-  default     = "scout-ch"
-}
-
 variable "github_repository" {
   description = "GitHub repository"
   type        = string
@@ -12,13 +6,11 @@ variable "github_repository" {
 variable "infomaniak_public_cloud_id" {
   description = "Infomaniak public cloud ID"
   type        = string
-  default     = "2976"
 }
 
 variable "infomaniak_public_cloud_project_id" {
   description = "Infomaniak public cloud project ID"
   type        = string
-  default     = "36930"
 }
 
 variable "cluster_name" {
