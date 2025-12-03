@@ -6,3 +6,9 @@ module "flux_cluster" {
 
   github_repository = "tractor-fluxcd-experiments-config"
 }
+
+module "traefik" {
+  source = "./modules/traefik"
+
+  cluster_config_repository = module.flux_cluster.config_repository
+}
