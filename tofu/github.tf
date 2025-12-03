@@ -23,7 +23,7 @@ resource "tls_private_key" "mova_erinnerungsbuch" {
 }
 
 data "github_ssh_keys" "this" {}
-
+/*
 resource "kubernetes_secret" "mova_erinnerungsbuch" {
   metadata {
     name      = "mova-erinnerungsbuch"
@@ -38,7 +38,7 @@ resource "kubernetes_secret" "mova_erinnerungsbuch" {
     known_hosts    = join("\n", [for key in data.github_ssh_keys.this.keys : "github.com ${key}"])
   }
 }
-
+*/
 resource "github_repository_deploy_key" "mova_erinnerungsbuch" {
   title      = "Flux"
   repository = "mova-erinnerungsbuch.ch"
