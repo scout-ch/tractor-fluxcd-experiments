@@ -5,6 +5,7 @@ provider "registry.opentofu.org/fluxcd/flux" {
   version     = "1.7.6"
   constraints = "1.7.6"
   hashes = [
+    "h1:rTN6yArT8dBH7qzGieKOMZuVbZ+vQJPtYYI4iGTf0K4=",
     "h1:vLAi6AkxYlmVgmrQrhnOvyIgN1H/kupHUZ8/p2g3bog=",
     "zh:08f1d43cc4d0d73beb26e433126ef68434ae1b88a945f3c7403e93ef8ce40b16",
     "zh:0a27c7876f2399a66049deae0a2f0ba2233a8eddd3a45560eff6e20dac279317",
@@ -28,6 +29,7 @@ provider "registry.opentofu.org/hashicorp/tls" {
   constraints = "4.1.0"
   hashes = [
     "h1:E9RjaL6cn8U/IkzfNcmrf/9EtMGjJnwUeXpx85sOGRg=",
+    "h1:yNZuPWUgw6Ik2huf9lhsuCGONWo2rsY1MfeceT0BQpw=",
     "zh:187a99f0d236fd92da224e2f026c4ca8f1dcbf2b5cddc8e6896801bacfab0d73",
     "zh:61a32a01cc46f382014dcf7aff5bcac61fe97bd69d3ccb51c801e9437ecdb9ce",
     "zh:683ba18baa2cc336ff83f061b5e4569e2cd7c4a097b53a2d80bb0a26be2fc59a",
@@ -45,6 +47,7 @@ provider "registry.opentofu.org/infomaniak/infomaniak" {
   version     = "1.3.4"
   constraints = "1.3.4"
   hashes = [
+    "h1:o6aZvkZmXBadPtLDaVd1J9F+u7lA6vpFS535OXgOMMQ=",
     "h1:oB5tdGO+e25OWW81R1SpLBmOdtQA6ma3X8PE4Ll+0E4=",
     "zh:219da7beacf649245f463a28223d971b0e6e7d41f05ab28854ef1fd4e4ab1708",
     "zh:3a271b7b0b248dba78a7d2e4b64a4d55ee7fcf59fabf45ca195ec5009cfb5a97",
@@ -69,6 +72,7 @@ provider "registry.opentofu.org/integrations/github" {
   constraints = "6.8.3"
   hashes = [
     "h1:6+CTf/yJygDJsN3fTgoYonMmjpsytn9KrzXcdBhHdmc=",
+    "h1:aJDtXRORhhNljqxf8V8zE2PGXs0clB1NO9zR2Kduf2E=",
     "zh:0795635834c762371aae1748f68d17db778918f48a630c69e673e0339edc0869",
     "zh:191649a4ca68b8c5235712247b9ae05b16123e912c8e0f875267df68fda64452",
     "zh:3a5260d0af06c37a346e9397f7563e03247c99906b4d2df9d615ab72a6a2dde1",
