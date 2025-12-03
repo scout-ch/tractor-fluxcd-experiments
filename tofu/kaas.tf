@@ -1,11 +1,11 @@
 resource "infomaniak_kaas" "fluxcd_experiments" {
-  public_cloud_id         = "2976"
-  public_cloud_project_id = "36930"
+  public_cloud_id         = var.infomaniak_public_cloud_id
+  public_cloud_project_id = var.infomaniak_public_cloud_project_id
 
-  name               = "tractor-fluxcd-tests"
-  pack_name          = "shared"
-  kubernetes_version = "1.34"
-  region             = "dc4-a"
+  name               = var.cluster_name
+  pack_name          = var.cluster_instance_pack_name
+  kubernetes_version = var.cluster_version
+  region             = var.cluster_region
 }
 
 resource "infomaniak_kaas_instance_pool" "instance_pool" {
@@ -13,9 +13,9 @@ resource "infomaniak_kaas_instance_pool" "instance_pool" {
   public_cloud_project_id = infomaniak_kaas.fluxcd_experiments.public_cloud_project_id
   kaas_id                 = infomaniak_kaas.fluxcd_experiments.id
 
-  name              = "instance-pool-1"
-  flavor_name       = "a1-ram2-disk20-perf1"
-  min_instances     = 1
-  max_instances     = 1
-  availability_zone = "az-1"
+  name              = var.cluster_instance_pool_name
+  flavor_name       = var.cluster_instance_pool_flavor
+  min_instances     = var.cluster_instance_pool_instances
+  max_instances     = var.cluster_instance_pool_instances
+  availability_zone = var.cluster_instance_pool_availability_zone
 }
