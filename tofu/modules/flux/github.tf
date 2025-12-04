@@ -29,7 +29,9 @@ resource "github_repository_file" "tenants" {
 }
 
 resource "github_repository_file" "webhook_ingress" {
+  for_each = local.webhook_ingress_manifest != null ? { "this" = local.webhook_ingress_manifest } : {}
+
   repository = var.github_repository
   file       = "${local.cluster_config_path}/webhook-ingress.yaml"
-  content    = local.webhook_ingress_manifest
+  content    = each.value
 }

@@ -34,6 +34,10 @@ resource "kubernetes_manifest" "this" {
       status = "True"
     }
   }
+
+  depends_on = [
+    kubernetes_secret.token,
+  ]
 }
 
 data "kubernetes_resource" "this" {

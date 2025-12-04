@@ -30,18 +30,18 @@ module "traefik" {
 }
 
 resource "infomaniak_record" "traefik" {
-  zone_fqdn = "tractor.scout.ch."
+  zone_fqdn = "fluxcd-experiments.tractor.scout.ch."
   type      = "A"
-  source    = "traefik.fluxcd-experiments"
+  source    = "traefik"
   data = {
     ip = "83.228.202.158" # manually read from service after initial bootstrap
   }
 }
 
 resource "infomaniak_record" "webhook_receiver" {
-  zone_fqdn = "tractor.scout.ch."
+  zone_fqdn = "fluxcd-experiments.tractor.scout.ch."
   type      = "CNAME"
-  source    = "webhook-receiver.fluxcd-experiments"
+  source    = "webhook-receiver"
   data = {
     target = "traefik.fluxcd-experiments.tractor.scout.ch."
   }
