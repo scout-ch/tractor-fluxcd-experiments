@@ -52,7 +52,7 @@ spec:
     branch: main
   secretRef:
     name: ${secret_name}
-  url: ssh://${github_repository_url}
+  url: ${github_repository_url}
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

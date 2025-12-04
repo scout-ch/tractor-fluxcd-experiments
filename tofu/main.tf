@@ -25,3 +25,8 @@ terraform {
     }
   }
 }
+
+locals {
+  cluster_name = "tractor-fluxcd-experiments"
+  webhook_host = trim("${infomaniak_record.webhook_receiver.source}.${infomaniak_record.webhook_receiver.zone_fqdn}", ".")
+}

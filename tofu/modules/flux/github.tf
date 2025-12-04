@@ -27,3 +27,9 @@ resource "github_repository_file" "tenants" {
   file       = "${local.cluster_config_path}/tenants.yaml"
   content    = file("${path.module}/resources/tenants.yaml")
 }
+
+resource "github_repository_file" "webhook_ingress" {
+  repository = var.github_repository
+  file       = "${local.cluster_config_path}/webhook-ingress.yaml"
+  content    = local.webhook_ingress_manifest
+}

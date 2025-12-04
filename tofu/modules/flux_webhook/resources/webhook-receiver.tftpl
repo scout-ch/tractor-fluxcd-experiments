@@ -1,0 +1,16 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1
+kind: Receiver
+metadata:
+  name: ${name}
+  namespace: ${namespace}
+spec:
+  type: github
+  events:
+    - "ping"
+    - "push"
+  secretRef:
+    name: ${secret_name}
+  resources:
+    - kind: GitRepository
+      name: ${repository}

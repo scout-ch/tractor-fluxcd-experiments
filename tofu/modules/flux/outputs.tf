@@ -8,6 +8,11 @@ output "config_repository_full_name" {
   value       = github_repository.this.full_name
 }
 
+output "cluster_config_path" {
+  description = "The path within the Git repository where the cluster configuration is stored"
+  value       = local.cluster_config_path
+}
+
 output "flux_private_key" {
   description = "The private key used by Flux to access the Git repository"
   value       = tls_private_key.flux.private_key_pem

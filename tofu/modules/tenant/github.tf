@@ -19,11 +19,11 @@ resource "github_repository_deploy_key" "mova_erinnerungsbuch" {
 
 resource "github_repository_file" "this" {
   repository = var.cluster_config_repository
-  file       = "tenants/${var.tenant_name}.yaml"
+  file       = "${local.config_path}/tenant.yaml"
   content = templatefile("${path.module}/resources/tenant.tftpl", {
     tenant_name                  = var.tenant_name
     secret_name                  = local.kubernetes_secret_name
-    github_repository_url        = github_repository.this.ssh_clone_url
+    github_repository_url        = "ssh://git@github.com/${github_repository.this.full_name}.git"
     namespace                    = local.kubernetes_namespace
     default_service_account_name = local.default_service_account_name
     git_repository_crd_name      = local.git_repository_crd_name

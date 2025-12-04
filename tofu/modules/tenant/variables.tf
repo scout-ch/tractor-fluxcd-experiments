@@ -19,3 +19,10 @@ variable "users" {
   type        = map(string)
   default     = {}
 }
+
+variable "webhook_ingress_host" {
+  description = "The ingress host for the Flux webhook (if any)"
+  type        = string
+  nullable    = true
+  default     = null
+}
