@@ -4,5 +4,5 @@ module "u_clever" {
   username          = "clever"
   default_namespace = null
 
-  cluster_info = module.flux_cluster.cluster_info
+  cluster_info = module.kaas.cluster_info
 }
