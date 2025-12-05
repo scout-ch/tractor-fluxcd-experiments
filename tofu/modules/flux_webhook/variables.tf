@@ -32,3 +32,8 @@ variable "repository_reference" {
   description = "The Git repository reference for Flux to sync from"
   type        = string
 }
+
+variable "secret_namespace" {
+  description = "Namespace for the kuberenetes_secret resource to prevent bootstrapping race conditions / set up proper terraform depends_on. Usually the same as namespace, but passed in as a property of other modules."
+  type        = string
+}

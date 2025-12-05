@@ -10,7 +10,7 @@ resource "tls_private_key" "this" {
   algorithm = "ED25519"
 }
 
-resource "github_repository_deploy_key" "mova_erinnerungsbuch" {
+resource "github_repository_deploy_key" "this" {
   title      = "Flux"
   repository = github_repository.this.name
   key        = tls_private_key.this.public_key_openssh

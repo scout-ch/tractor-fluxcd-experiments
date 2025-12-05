@@ -1,3 +1,9 @@
+resource "github_repository_file" "this" {
+  repository = var.config_github_repository
+  file       = "${var.config_path}/webhook-receiver.yaml"
+  content    = local.webhook_receiver_manifest
+}
+
 resource "random_password" "token" {
   length  = 32
   special = false
@@ -9,7 +15,7 @@ resource "random_password" "token" {
 resource "kubernetes_secret" "token" {
   metadata {
     name      = local.webhook_receiver_secret_name
-    namespace = var.namespace
+    namespace = var.secret_namespace
   }
 
   type = "generic"
@@ -17,12 +23,6 @@ resource "kubernetes_secret" "token" {
   data = {
     token = random_password.token.result
   }
-}
-
-resource "github_repository_file" "this" {
-  repository = var.config_github_repository
-  file       = "${var.config_path}/webhook-receiver.yaml"
-  content    = local.webhook_receiver_manifest
 }
 
 resource "kubernetes_manifest" "this" {

@@ -9,4 +9,5 @@ module "webhook" {
   namespace                = local.kubernetes_namespace
   name                     = var.tenant_name
   repository_reference     = local.git_repository_crd_name
+  secret_namespace         = kubernetes_namespace.this.metadata[0].name
 }

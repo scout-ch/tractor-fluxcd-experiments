@@ -1,13 +1,3 @@
-resource "flux_bootstrap_git" "this" {
-  depends_on = [
-    github_repository_deploy_key.this
-  ]
-
-  embedded_manifests     = true
-  kustomization_override = file("${path.module}/resources/flux-kustomization-patch.yaml")
-  path                   = local.cluster_config_path
-}
-
 module "webhook" {
   for_each = var.webhook_ingress_host != null ? { "this" = var.webhook_ingress_host } : {}
 
@@ -19,4 +9,16 @@ module "webhook" {
   namespace                = "flux-system"
   name                     = "flux-system"
   repository_reference     = "flux-system"
+  secret_namespace         = flux_bootstrap_git.this.namespace
+}
+
+resource "flux_bootstrap_git" "this" {
+  depends_on = [
+    github_repository_deploy_key.this,
+    module.webhook.webhook_file,
+  ]
+
+  embedded_manifests     = true
+  kustomization_override = file("${path.module}/resources/flux-kustomization-patch.yaml")
+  path                   = local.cluster_config_path
 }
