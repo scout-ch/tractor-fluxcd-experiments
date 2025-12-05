@@ -28,3 +28,7 @@ provider "kubernetes" {
   client_key             = module.kaas.k8s_config.client_key
   cluster_ca_certificate = module.kaas.k8s_config.cluster_ca_certificate
 }
+
+provider "kubewait" {
+  kube_config = module.kaas.raw_k8s_config
+}

@@ -8,5 +8,9 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = ">=2.38.0, <3.0.0"
     }
+    kubewait = {
+      source  = "Nuxij/kubewait"
+      version = ">=0.0.4, <1.0.0"
+    }
   }
 }

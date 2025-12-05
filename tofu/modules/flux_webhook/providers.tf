@@ -12,5 +12,9 @@ terraform {
       source  = "hashicorp/random"
       version = ">=3.4.3, <4.0.0"
     }
+    kubewait = {
+      source  = "Nuxij/kubewait"
+      version = ">=0.0.4, <1.0.0"
+    }
   }
 }

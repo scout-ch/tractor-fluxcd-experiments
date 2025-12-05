@@ -25,20 +25,15 @@ resource "kubernetes_secret" "token" {
   }
 }
 
-resource "kubernetes_manifest" "this" {
-  manifest = local.webhook_receiver
-
-  wait {
-    condition {
-      type   = "Ready"
-      status = "True"
-    }
-  }
-
-  depends_on = [
-    kubernetes_secret.token,
-  ]
+/* not working with kubewait 0.4.0
+resource "kubewait_wait" "webhook_receiver_ready" {
+  resource  = "receiver"
+  for       = "jsonpath={.status.ready}=true"
+  name      = local.webhook_receiver.metadata.name
+  namespace = local.webhook_receiver.metadata.namespace
+  timeout   = 300
 }
+*/
 
 data "kubernetes_resource" "this" {
   api_version = local.webhook_receiver.apiVersion
@@ -48,7 +43,10 @@ data "kubernetes_resource" "this" {
     namespace = local.webhook_receiver.metadata.namespace
   }
 
-  depends_on = [kubernetes_manifest.this]
+  depends_on = [
+    kubernetes_secret.token,
+    //kubewait_wait.webhook_receiver_ready,
+  ]
 }
 
 resource "github_repository_webhook" "this" {
