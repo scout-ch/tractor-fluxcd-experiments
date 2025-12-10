@@ -3,16 +3,28 @@ provider "infomaniak" {
 }
 
 provider "flux" {
-  kubernetes = local.k8s_config
+  kubernetes = {
+    host                   = module.kaas.k8s_config.host
+    client_certificate     = module.kaas.k8s_config.client_certificate
+    client_key             = module.kaas.k8s_config.client_key
+    cluster_ca_certificate = module.kaas.k8s_config.cluster_ca_certificate
+  }
   git = {
-    url = "ssh://git@github.com/${var.github_org}/${var.github_repository}.git"
+    url = "ssh://git@github.com/${module.flux.config_repository_full_name}.git"
     ssh = {
       username    = "git"
-      private_key = tls_private_key.flux.private_key_pem
+      private_key = module.flux.flux_private_key
     }
   }
 }
 
 provider "github" {
-  owner = var.github_org
+  owner = "scout-ch"
+}
+
+provider "kubernetes" {
+  host                   = module.kaas.k8s_config.host
+  client_certificate     = module.kaas.k8s_config.client_certificate
+  client_key             = module.kaas.k8s_config.client_key
+  cluster_ca_certificate = module.kaas.k8s_config.cluster_ca_certificate
 }
