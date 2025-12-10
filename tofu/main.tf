@@ -5,7 +5,7 @@ terraform {
   required_providers {
     infomaniak = {
       source  = "Infomaniak/infomaniak"
-      version = "1.3.4"
+      version = "1.3.6"
     }
     flux = {
       source  = "fluxcd/flux"
@@ -13,7 +13,7 @@ terraform {
     }
     github = {
       source  = "integrations/github"
-      version = "6.8.3"
+      version = "6.9.0"
     }
     tls = {
       source  = "hashicorp/tls"
