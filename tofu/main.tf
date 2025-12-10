@@ -21,12 +21,12 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.38.0"
+      version = "3.0.1"
     }
   }
 }
 
 locals {
   cluster_name = "tractor-fluxcd-experiments"
-  webhook_host = trim("${infomaniak_record.webhook_receiver.source}.${infomaniak_record.webhook_receiver.zone_fqdn}", ".")
+  webhook_host = "webhook.fluxcd-experiments.tractor.scout.ch"
 }

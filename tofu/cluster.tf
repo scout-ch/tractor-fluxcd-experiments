@@ -16,7 +16,7 @@ module "kaas" {
 }
 
 module "flux" {
-  source = "./modules/flux"
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux"
 
   cluster_name         = local.cluster_name
   github_repository    = "tractor-fluxcd-experiments-config"
@@ -24,25 +24,7 @@ module "flux" {
 }
 
 module "traefik" {
-  source = "./modules/traefik"
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik"
 
   cluster_config_repository = module.flux.config_repository
-}
-
-resource "infomaniak_record" "traefik" {
-  zone_fqdn = "fluxcd-experiments.tractor.scout.ch."
-  type      = "A"
-  source    = "traefik"
-  data = {
-    ip = "83.228.202.158" # manually read from service after initial bootstrap
-  }
-}
-
-resource "infomaniak_record" "webhook_receiver" {
-  zone_fqdn = "fluxcd-experiments.tractor.scout.ch."
-  type      = "CNAME"
-  source    = "webhook-receiver"
-  data = {
-    target = "traefik.fluxcd-experiments.tractor.scout.ch."
-  }
 }
