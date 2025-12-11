@@ -27,4 +27,12 @@ module "traefik" {
   source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik"
 
   cluster_config_repository = module.flux.config_repository
+  cluster_config_path       = module.flux.cluster_config_path
+}
+
+module "cert_manager" {
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager"
+
+  cluster_config_repository = module.flux.config_repository
+  cluster_config_path       = module.flux.cluster_config_path
 }
