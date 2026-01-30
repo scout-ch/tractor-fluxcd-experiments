@@ -17,7 +17,7 @@ resource "infomaniak_kaas_instance_pool" "instance_pool" {
 
   name              = each.key
   flavor_name       = each.value.flavor_name
-  min_instances     = each.value.instances
-  max_instances     = each.value.instances
+  min_instances     = each.value.min_instances
+  max_instances     = each.value.max_instances
   availability_zone = each.value.availability_zone
 }

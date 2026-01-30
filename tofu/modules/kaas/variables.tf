@@ -19,7 +19,8 @@ variable "cluster" {
 variable "cluster_instance_pools" {
   type = map(object({
     flavor_name       = optional(string, "a1-ram2-disk20-perf1")
-    instances         = optional(number, 1) // Infomaniak doesn't officially support autoscaling yet, so we stick to that for now.
+    min_instances     = optional(number, 1)
+    max_instances     = optional(number, 1)
     availability_zone = optional(string, "az-1")
   }))
 }

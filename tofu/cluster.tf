@@ -11,7 +11,9 @@ module "kaas" {
   }
 
   cluster_instance_pools = {
-    default = {}
+    default = {
+      max_instances = 5
+    }
   }
 }
 
