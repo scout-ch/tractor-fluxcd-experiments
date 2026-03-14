@@ -30,6 +30,7 @@ module "traefik" {
 
   cluster_config_repository = module.flux.config_repository
   cluster_config_path       = module.flux.cluster_config_path
+  load_balancer_ip          = "83.228.201.60"
 }
 
 module "cert_manager" {
