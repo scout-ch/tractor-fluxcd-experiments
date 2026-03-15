@@ -7,7 +7,8 @@ module "kaas" {
   }
 
   cluster = {
-    name = local.cluster_name
+    name    = local.cluster_name
+    version = "1.35"
   }
 
   cluster_instance_pools = {
