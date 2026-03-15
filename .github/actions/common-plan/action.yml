@@ -1,0 +1,52 @@
+name: "OpenTofu Plan"
+description: "Run OpenTofu plan"
+inputs:
+  lock:
+    description: "Should terraform state be locked?"
+    required: false
+    default: "true"
+outputs:
+  plan:
+    description: Stdout of tofu plan command
+    value: ${{ steps.plan.outputs.stdout }}
+  plan_outcome:
+    description: Outcome of tofu plan command
+    value: ${{ steps.plan.outcome }}
+  validate:
+    description: Stdout of tofu validate command
+    value: ${{ steps.validate.outputs.stdout }}
+  validate_outcome:
+    description: Outcome of tofu validate command
+    value: ${{ steps.validate.outcome }}
+  init_outcome:
+    description: Outcome of tofu init command
+    value: ${{ steps.init.outcome }}
+runs:
+  using: "composite"
+  steps:
+    - name: Install OpenTofu
+      uses: opentofu/setup-opentofu@9d84900f3238fab8cd84ce47d658d25dd008be2f # v1
+      with:
+        tofu_version: 1.10.7
+
+    - uses: de-vri-es/setup-git-credentials@v2
+      with:
+        credentials: "https://${{ env.GITHU_TOKEN }}@github.com"
+
+    - name: OpenTofu Init
+      shell: bash
+      working-directory: tofu
+      id: init
+      run: tofu init
+
+    - name: OpenTofu Validate
+      shell: bash
+      working-directory: tofu
+      id: validate
+      run: tofu validate -no-color
+
+    - name: OpenTofu Plan
+      shell: bash
+      working-directory: tofu
+      id: plan
+      run: "tofu plan -no-color -out=tfplan ${{ inputs.lock != 'true' && ' -lock=false' || '' }}"
