@@ -10,12 +10,14 @@ module "kaas_emergency" {
     name      = "tractor-k8s-emergency"
     version   = "1.35"
     pack_name = "dedicated_4"
+    region    = "dc3-a"
   }
 
   cluster_instance_pools = {
     default = {
-      min_instances = 1
-      max_instances = 5
+      min_instances     = 2
+      max_instances     = 2
+      availability_zone = "dc3-a-10"
     }
   }
 }
@@ -38,7 +40,7 @@ module "traefik_kaas_emergency" {
 
   cluster_config_repository = module.flux_kaas_emergency.config_repository
   cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
-  load_balancer_ip          = "37.156.43.199"
+  load_balancer_ip          = "195.15.192.244"
 }
 
 module "cert_manager_kaas_emergency" {
