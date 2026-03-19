@@ -5,22 +5,6 @@ inputs:
     description: "Should terraform state be locked?"
     required: false
     default: "true"
-outputs:
-  plan:
-    description: Stdout of tofu plan command
-    value: ${{ steps.plan.outputs.stdout }}
-  plan_outcome:
-    description: Outcome of tofu plan command
-    value: ${{ steps.plan.outcome }}
-  validate:
-    description: Stdout of tofu validate command
-    value: ${{ steps.validate.outputs.stdout }}
-  validate_outcome:
-    description: Outcome of tofu validate command
-    value: ${{ steps.validate.outcome }}
-  init_outcome:
-    description: Outcome of tofu init command
-    value: ${{ steps.init.outcome }}
 runs:
   using: "composite"
   steps:
@@ -43,10 +27,50 @@ runs:
       shell: bash
       working-directory: tofu
       id: validate
-      run: tofu validate -no-color
+      run: tofu validate -no-color | tee validate_output.txt
 
     - name: OpenTofu Plan
       shell: bash
       working-directory: tofu
       id: plan
       run: "tofu plan -no-color -out=tfplan ${{ inputs.lock != 'true' && ' -lock=false' || '' }}"
+
+    - name: Create Pretty Plan
+      shell: bash
+      working-directory: tofu
+      id: create-pretty-plan
+      run: |
+        cat <<EOF | tee -a pretty_plan_short.txt >> pretty_plan.txt
+        #### OpenTofu Initialization ⚙️\`${{ steps.init.outcome }}\`
+        #### OpenTofu Validation 🤖\`${{ steps.validate.outcome }}\`
+        <details><summary>Validation Output</summary>
+
+        \`\`\`
+        EOF
+
+        tail -c 10000 validate_output.txt >> pretty_plan_short.txt
+        tail -c 100000 validate_output.txt >> pretty_plan.txt
+
+        cat <<EOF | tee -a pretty_plan_short.txt >> pretty_plan.txt
+        \`\`\`
+
+        </details>
+
+        #### OpenTofu Plan 📖\`${{ steps.plan.outcome }}\`
+
+        <details><summary>Show Plan</summary>
+
+        \`\`\`
+        EOF
+
+        tofu show -no-color tfplan >> pretty_plan_full.txt
+        tail -c 55000 pretty_plan_full.txt >> pretty_plan_short.txt
+        tail -c 899000 pretty_plan_full.txt >> pretty_plan.txt
+
+        cat <<EOF | tee -a pretty_plan_short.txt >> pretty_plan.txt
+        \`\`\`
+
+        </details>
+
+        *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`tofu\`, Workflow: \`${{ github.workflow }}\`*
+        EOF

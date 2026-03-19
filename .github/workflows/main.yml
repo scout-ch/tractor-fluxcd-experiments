@@ -41,38 +41,9 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
       - name: Annotate Run
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
-        env:
-          PLAN: ${{ steps.plan.outputs.plan }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // 1. Prepare format of the comment
-            const output = `#### OpenTofu Initialization ⚙️\`${{ steps.plan.outputs.init_outcome }}\`
-            #### OpenTofu Validation 🤖\`${{ steps.plan.outputs.validate_outcome }}\`
-            <details><summary>Validation Output</summary>
-
-            \`\`\`\n
-            ${{ steps.plan.outputs.validate }}
-            \`\`\`
-
-            </details>
-
-            #### OpenTofu Plan 📖\`${{ steps.plan.outputs.plan_outcome }}\`
-
-            <details><summary>Show Plan</summary>
-
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
-
-            </details>
-
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`tofu\`, Workflow: \`${{ github.workflow }}\`*`;
-
-            // 2. Write to step summary
-            const fs = require('fs');
-            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, output);
+        if: success() || failure()
+        shell: bash
+        run: cat pretty_plan.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Plan Artifact
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7

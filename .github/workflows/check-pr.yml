@@ -27,47 +27,28 @@ jobs:
         id: fmt
         run: tofu fmt -check -recursive -diff
 
-      - name: Annotate PR and Run
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
-        if: github.event_name == 'pull_request' && (success() || failure())
+      - name: Generate Comment
+        if: success() || failure()
+        shell: bash
+        run: |
+          cat <<EOF>> pretty_lint_result.txt
+          #### OpenTofu Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*
+          EOF
+
+      - name: Annotate PR
+        uses: marocchino/sticky-pull-request-comment@v3
+        if: success() || failure()
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // 1. Retrieve existing bot comments for the PR
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            })
-            const botComment = comments.find(comment => {
-              return comment.user.type === 'Bot' && comment.body.includes('OpenTofu Format and Style')
-            })
+          header: lint
+          path: tofu/pretty_lint_result.txt
 
-            // 2. Prepare format of the comment
-            const output = `#### OpenTofu Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+      - name: Annotate Run
+        if: success() || failure()
+        shell: bash
+        run: cat pretty_lint_result.txt >> $GITHUB_STEP_SUMMARY
 
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-
-            // 3. If we have a comment, update it, otherwise create a new one
-            if (botComment) {
-              github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: output
-              })
-            } else {
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: output
-              })
-            }
-
-            // 4. Write to step summary
-            const fs = require('fs');
-            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, output);
   plan:
     name: "Prepare Plan"
     runs-on: ubuntu-latest
@@ -99,64 +80,14 @@ jobs:
           INFOMANIAK_TOKEN: ${{ secrets.INFOMANIAK_TOKEN }}
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
-      - name: Annotate PR and Run
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
-        if: github.event_name == 'pull_request' && (success() || failure())
-        env:
-          PLAN: ${{ steps.plan.outputs.plan }}
+      - name: Annotate PR
+        uses: marocchino/sticky-pull-request-comment@v3
+        if: success() || failure()
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // 1. Retrieve existing bot comments for the PR
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            })
-            const botComment = comments.find(comment => {
-              return comment.user.type === 'Bot' && comment.body.includes('OpenTofu Initialization')
-            })
+          header: plan
+          path: tofu/pretty_plan_short.txt
 
-            // 2. Prepare format of the comment
-            const output = `#### OpenTofu Initialization ⚙️\`${{ steps.plan.outputs.init_outcome }}\`
-            #### OpenTofu Validation 🤖\`${{ steps.plan.outputs.validate_outcome }}\`
-            <details><summary>Validation Output</summary>
-
-            \`\`\`\n
-            ${{ steps.plan.outputs.validate }}
-            \`\`\`
-
-            </details>
-
-            #### OpenTofu Plan 📖\`${{ steps.plan.outputs.plan_outcome }}\`
-
-            <details><summary>Show Plan</summary>
-
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
-
-            </details>
-
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`tofu\`, Workflow: \`${{ github.workflow }}\`*`;
-
-            // 3. If we have a comment, update it, otherwise create a new one
-            if (botComment) {
-              github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: output
-              })
-            } else {
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: output
-              })
-            }
-
-            // 4. Write to step summary
-            const fs = require('fs');
-            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, output);
+      - name: Annotate Run
+        if: success() || failure()
+        shell: bash
+        run: cat pretty_plan.txt >> $GITHUB_STEP_SUMMARY
