@@ -38,7 +38,7 @@
       ]
     },
     {
-      "matchDatasources": [
+      "matchManagers": [
         "flux"
       ],
       "pinDigests": false
