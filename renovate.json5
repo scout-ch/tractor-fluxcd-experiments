@@ -47,7 +47,7 @@
       "matchStrings": [
         "\"git::ssh://git@(?<host>.*?)/(?<packageName>.*)\.git//.*?ref=(?<currentDigest>.*?)\" # (?<currentValue>.*)"
       ],
-      "datasourceTemplate": "git-refs",
+      "datasourceTemplate": "github-digest",
       "depNameTemplate": "{{host}}/{{packageName}}",
       "registryUrlTemplate": "https://{{host}}"
     }
