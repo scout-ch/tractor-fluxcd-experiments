@@ -38,6 +38,20 @@
       ]
     }
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/.*\.tf$/"
+      ],
+      "matchStrings": [
+        "\"git::ssh://git@(?<host>.*?)/(?<packageName>.*)\.git//.*?ref=(?<currentDigest>.*?)\" # (?<currentValue>.*)"
+      ],
+      "datasourceTemplate": "github-digest",
+      "depNameTemplate": "{{host}}/{{packageName}}",
+      "registryUrlTemplate": "https://{{host}}"
+    }
+  ],
   "platformAutomerge": true,
   "prHourlyLimit": 0,
   "rebaseWhen": "behind-base-branch",
