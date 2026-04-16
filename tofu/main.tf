@@ -5,7 +5,7 @@ terraform {
   required_providers {
     infomaniak = {
       source  = "Infomaniak/infomaniak"
-      version = "1.4.0"
+      version = "1.4.1"
     }
     flux = {
       source  = "fluxcd/flux"
