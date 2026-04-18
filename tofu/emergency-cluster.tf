@@ -23,7 +23,7 @@ module "kaas_emergency" {
 }
 
 module "flux_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=5c52c9a99e1675d79ff0285fe35e187e088c25c1" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=24390f4b7622e18f6a30d3d5e97b3a0c9d919226" # main
 
   cluster_name         = "tractor-k8s-emergency"
   github_repository    = "tractor-k8s-emergency-config"
@@ -36,7 +36,7 @@ module "flux_kaas_emergency" {
 }
 
 module "traefik_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=5c52c9a99e1675d79ff0285fe35e187e088c25c1" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=24390f4b7622e18f6a30d3d5e97b3a0c9d919226" # main
 
   cluster_config_repository = module.flux_kaas_emergency.config_repository
   cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
@@ -44,7 +44,7 @@ module "traefik_kaas_emergency" {
 }
 
 module "cert_manager_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=5c52c9a99e1675d79ff0285fe35e187e088c25c1" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=24390f4b7622e18f6a30d3d5e97b3a0c9d919226" # main
 
   cluster_config_repository = module.flux_kaas_emergency.config_repository
   cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
