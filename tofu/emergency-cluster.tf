@@ -49,4 +49,3 @@ module "cert_manager_kaas_emergency" {
   cluster_config_repository = module.flux_kaas_emergency.config_repository
   cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
 }
-
