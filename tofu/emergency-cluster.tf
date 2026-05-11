@@ -42,6 +42,7 @@ module "infrastructure_kaas_emergency" {
 
   cluster_config_repository = module.flux_kaas_emergency.config_repository
   cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
+  cluster_name              = "tractor-k8s-emergency"
   load_balancer_ip          = "195.15.192.244"
 
   enable = {
