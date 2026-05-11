@@ -25,8 +25,10 @@ module "kaas_emergency" {
 module "flux_kaas_emergency" {
   source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
-  cluster_name         = "tractor-k8s-emergency"
-  github_repository    = "tractor-k8s-emergency-config"
+  cluster_name = "tractor-k8s-emergency"
+  github_repository = {
+    full_name = github_repository.flux-config.full_name
+  }
   webhook_ingress_host = "webhook.emergency.k8s.tractor.scout.ch"
 
   providers = {
@@ -35,17 +37,14 @@ module "flux_kaas_emergency" {
   }
 }
 
-module "traefik_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
+module "infrastructure_kaas_emergency" {
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
   cluster_config_repository = module.flux_kaas_emergency.config_repository
   cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
   load_balancer_ip          = "195.15.192.244"
-}
 
-module "cert_manager_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
-
-  cluster_config_repository = module.flux_kaas_emergency.config_repository
-  cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
+  enable = {
+    metrics_server = false
+  }
 }

@@ -22,29 +22,35 @@ module "kaas" {
 module "flux" {
   source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
-  cluster_name         = local.cluster_name
-  github_repository    = "tractor-fluxcd-experiments-config"
+  cluster_name = local.cluster_name
+  github_repository = {
+    full_name = github_repository.flux-config.full_name
+  }
   webhook_ingress_host = local.webhook_host
 }
 
-module "traefik" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
+module "infrastructure" {
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
   cluster_config_repository = module.flux.config_repository
   cluster_config_path       = module.flux.cluster_config_path
   load_balancer_ip          = "83.228.201.60"
 }
 
+module "traefik" {
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=16a18484aad32851c315210a5476b68860eef76a" # main
+
+  github_repository = module.flux.config_repository
+}
+
 module "cert_manager" {
   source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
-  cluster_config_repository = module.flux.config_repository
-  cluster_config_path       = module.flux.cluster_config_path
+  github_repository = module.flux.config_repository
 }
 
 module "metrics_server" {
   source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/metrics_server?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
-  cluster_config_repository = module.flux.config_repository
-  cluster_config_path       = module.flux.cluster_config_path
+  github_repository = module.flux.config_repository
 }
