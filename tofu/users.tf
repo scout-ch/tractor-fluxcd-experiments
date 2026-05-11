@@ -1,5 +1,5 @@
 module "u_clever" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=095b720ad20fc78a37cbcd9954cdea6623dd1950" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
   username          = "clever"
   default_namespace = null
@@ -8,7 +8,7 @@ module "u_clever" {
 }
 
 module "u_clever_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=095b720ad20fc78a37cbcd9954cdea6623dd1950" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
   username          = "clever"
   default_namespace = null
