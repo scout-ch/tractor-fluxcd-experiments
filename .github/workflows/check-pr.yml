@@ -21,7 +21,7 @@ jobs:
       - name: Install OpenTofu
         uses: opentofu/setup-opentofu@fc711fa910b93cba0f3fbecaafc9f42fd0c411cb # v2
         with:
-          tofu_version: 1.10.7
+          tofu_version: 1.11.6
 
       - name: OpenTofu Format
         id: fmt
