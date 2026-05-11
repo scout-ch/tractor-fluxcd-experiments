@@ -38,7 +38,7 @@ module "infrastructure" {
 }
 
 module "traefik" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=16a18484aad32851c315210a5476b68860eef76a" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=9b58cadcf6ef8bf971a157a108ad2a3ada6a0f66" # main
 
   github_repository = module.flux.config_repository
 }
