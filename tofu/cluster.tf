@@ -20,7 +20,7 @@ module "kaas" {
 }
 
 module "flux" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=68d62d3ce5874315f923bdeb99d59eeaeb5989ec" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=692d48138ae7ad1904170df99e2848a0df29818d" # main
 
   cluster_name = local.cluster_name
   github_repository = {
@@ -30,7 +30,7 @@ module "flux" {
 }
 
 module "infrastructure" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=68d62d3ce5874315f923bdeb99d59eeaeb5989ec" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=692d48138ae7ad1904170df99e2848a0df29818d" # main
 
   cluster_config_repository = module.flux.config_repository
   cluster_config_path       = module.flux.cluster_config_path
@@ -39,19 +39,19 @@ module "infrastructure" {
 }
 
 module "traefik" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=68d62d3ce5874315f923bdeb99d59eeaeb5989ec" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=692d48138ae7ad1904170df99e2848a0df29818d" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "cert_manager" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=68d62d3ce5874315f923bdeb99d59eeaeb5989ec" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=692d48138ae7ad1904170df99e2848a0df29818d" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "metrics_server" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/metrics_server?ref=68d62d3ce5874315f923bdeb99d59eeaeb5989ec" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/metrics_server?ref=692d48138ae7ad1904170df99e2848a0df29818d" # main
 
   github_repository = module.flux.config_repository
 }
