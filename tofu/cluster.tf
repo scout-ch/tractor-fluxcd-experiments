@@ -36,6 +36,13 @@ module "infrastructure" {
   cluster_config_path       = module.flux.cluster_config_path
   cluster_name              = local.cluster_name
   load_balancer_ip          = "83.228.201.60"
+
+  velero_infomaniak_backup_location = {
+    region_name                 = "dc4-a"
+    auth_url                    = "https://api.pub1.infomaniak.cloud/identity"
+    application_credential_name = "${local.cluster_name}-velero"
+    os_swift_endpoint_host      = "s3.pub2.infomaniak.cloud"
+  }
 }
 
 module "traefik" {
@@ -52,6 +59,18 @@ module "cert_manager" {
 
 module "metrics_server" {
   source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/metrics_server?ref=bc4da930da1d89ba0f06c1de840da9694d96a057" # main
+
+  github_repository = module.flux.config_repository
+}
+
+module "velero" {
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/velero?ref=bc4da930da1d89ba0f06c1de840da9694d96a057" # main
+
+  github_repository = module.flux.config_repository
+}
+
+module "external_snapshotter" {
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/external_snapshotter?ref=bc4da930da1d89ba0f06c1de840da9694d96a057" # main
 
   github_repository = module.flux.config_repository
 }

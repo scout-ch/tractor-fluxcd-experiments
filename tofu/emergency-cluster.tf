@@ -46,6 +46,8 @@ module "infrastructure_kaas_emergency" {
   load_balancer_ip          = "195.15.192.244"
 
   enable = {
-    metrics_server = false
+    metrics_server       = false
+    velero               = false
+    external_snapshotter = false
   }
 }
