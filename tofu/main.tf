@@ -23,6 +23,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "3.1.0"
     }
+    openstack = {
+      source  = "terraform-provider-openstack/openstack"
+      version = "3.4.0"
+    }
   }
 }
 

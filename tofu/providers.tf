@@ -55,3 +55,9 @@ provider "flux" {
     }
   }
 }
+
+provider "openstack" {
+  tenant_id = "599b3e68d2ad4a58aa1254b277d91931"
+  auth_url  = "https://api.pub1.infomaniak.cloud/identity"
+  region    = "dc4-a"
+}
