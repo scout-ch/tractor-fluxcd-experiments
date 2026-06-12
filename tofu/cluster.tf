@@ -20,7 +20,7 @@ module "kaas" {
 }
 
 module "flux" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=3b328fdc188ba8d3c68144fe273b187e366b9213" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=cd4db19349a254d7422ff7f52f94f506c17b0052" # main
 
   cluster_name = local.cluster_name
   github_repository = {
@@ -30,13 +30,13 @@ module "flux" {
 }
 
 module "backup_storage" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/backup_storage?ref=3b328fdc188ba8d3c68144fe273b187e366b9213" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/backup_storage?ref=cd4db19349a254d7422ff7f52f94f506c17b0052" # main
 
   bucket_name = local.cluster_name
 }
 
 module "infrastructure" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=3b328fdc188ba8d3c68144fe273b187e366b9213" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=cd4db19349a254d7422ff7f52f94f506c17b0052" # main
 
   cluster_config_repository = module.flux.config_repository
   cluster_config_path       = module.flux.cluster_config_path
