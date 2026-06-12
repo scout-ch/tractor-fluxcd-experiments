@@ -30,7 +30,7 @@ module "flux" {
 }
 
 module "backup_storage" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/backup-storage?ref=3b328fdc188ba8d3c68144fe273b187e366b9213" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/backup_storage?ref=3b328fdc188ba8d3c68144fe273b187e366b9213" # main
 
   bucket_name = local.cluster_name
 }
