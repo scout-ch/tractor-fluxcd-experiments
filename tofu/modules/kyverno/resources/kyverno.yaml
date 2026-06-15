@@ -1,0 +1,75 @@
+#
+# RBAC
+#
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: kyverno
+  name: kyverno
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: kyverno
+  name: kyverno
+  namespace: kyverno
+---
+# kyverno needs cluster-wide permissions to watch for IngressRoutes and provides CRDs
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: kyverno
+  name: kyverno-reconciler
+  namespace: kyverno
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: kyverno
+    namespace: kyverno
+#
+# Traefik HelmRelease
+#
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kyverno
+  namespace: kyverno
+spec:
+  interval: 1h
+  url: https://kyverno.github.io/kyverno/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kyverno
+  namespace: kyverno
+spec:
+  serviceAccountName: kyverno
+  chart:
+    spec:
+      chart: kyverno
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+      version: 3.8.1
+  interval: 10m0s
+  driftDetection:
+    mode: enabled
+  values:
+    admissionController:
+      replicas: 2
+    backgroundController:
+      replicas: 1
+    cleanupController:
+      replicas: 1
+    reportsController:
+      replicas: 1

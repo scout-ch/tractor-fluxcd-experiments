@@ -44,3 +44,9 @@ module "external_snapshotter" {
 
   github_repository = module.flux.config_repository
 }
+
+module "kyverno" {
+  source = "./modules/kyverno" # main
+
+  github_repository = module.flux.config_repository
+}

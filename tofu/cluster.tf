@@ -42,6 +42,7 @@ module "infrastructure" {
   cluster_config_path       = module.flux.cluster_config_path
   cluster_name              = local.cluster_name
   load_balancer_ip          = "83.228.201.60"
+  instance_pool             = "pck-ukhkrdx-pfa"
 
   velero_infomaniak_backup_location = {
     s3_url         = "https://s3.pub2.infomaniak.cloud/"

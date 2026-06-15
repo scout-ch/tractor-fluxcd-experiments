@@ -6,6 +6,8 @@ module "t_whoami" {
   cluster_name              = local.cluster_name
   tenant_name               = "whoami"
   webhook_ingress_host      = local.webhook_host
+
+  instance_pool = "pck-ukhkrdx-pfa"
 }
 
 module "ns_pbs_pfadi_finder_midata_adapter_kaas_emergency" {
