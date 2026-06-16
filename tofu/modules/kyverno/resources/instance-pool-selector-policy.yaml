@@ -9,6 +9,15 @@ metadata:
     policies.kyverno.io/minversion: 1.15.0
     policies.kyverno.io/description: The nodeSelector field uses labels to select the node on which a Pod can be scheduled. This can be useful when Pods have specific needs that only certain nodes in a cluster can provide. This policy adds the nodeSelector field to a Pod spec and configures it with labels `foo` and `color`.
 spec:
+  context:
+    - name: ns
+      apiCall:
+        urlPath: "/api/v1/namespaces/{{request.namespace}}"
+  preconditions:
+    all:
+      - key: "{{ ns.metadata.annotations.'tractor.scout.ch/instance-pool' || '' }}"
+        operator: NotEquals
+        value: ""
   matchConstraints:
     resourceRules:
       - apiGroups:
@@ -50,19 +59,14 @@ spec:
             JSONPatch{
               op: "add",
               path: "/spec/nodeSelector",
-              value: dyn({"foo": "bar", "color": "orange"})
+              value: dyn({"kaas.infomaniak.cloud/instance-pool": parse_json(ns.metadata.annotations.'tractor.scout.ch/instance-pool'})
             }
           ] : 
           [
             JSONPatch{
               op: "add",
-              path: "/spec/nodeSelector/foo",
-              value: "bar"
-            },
-            JSONPatch{
-              op: "add",
-              path: "/spec/nodeSelector/color",
-              value: "orange"
+              path: "/spec/nodeSelector/kaas.infomaniak.cloud~1instance-pool",
+              value: parse_json(ns.metadata.annotations.'tractor.scout.ch/instance-pool')
             }
           ]
     - patchType: JSONPatch
@@ -74,19 +78,14 @@ spec:
               JSONPatch{
                 op: "add",
                 path: "/spec/template/spec/nodeSelector",
-                value: dyn({"foo": "bar", "color": "orange"})
+                value: dyn({"kaas.infomaniak.cloud/instance-pool": parse_json(ns.metadata.annotations.'tractor.scout.ch/instance-pool'})
               }
             ] : 
             [
               JSONPatch{
                 op: "add",
-                path: "/spec/template/spec/nodeSelector/foo",
-                value: "bar"
-              },
-              JSONPatch{
-                op: "add",
-                path: "/spec/template/spec/nodeSelector/color",
-                value: "orange"
+                path: "/spec/template/spec/nodeSelector/kaas.infomaniak.cloud~1instance-pool",
+                value: parse_json(ns.metadata.annotations.'tractor.scout.ch/instance-pool')
               }
             ]
           ) : []
@@ -99,19 +98,14 @@ spec:
               JSONPatch{
                 op: "add",
                 path: "/spec/jobTemplate/spec/template/spec/nodeSelector",
-                value: dyn({"foo": "bar", "color": "orange"})
+                value: dyn({"kaas.infomaniak.cloud/instance-pool": parse_json(ns.metadata.annotations.'tractor.scout.ch/instance-pool')})
               }
             ] : 
             [
               JSONPatch{
                 op: "add",
-                path: "/spec/jobTemplate/spec/template/spec/nodeSelector/foo",
-                value: "bar"
-              },
-              JSONPatch{
-                op: "add",
-                path: "/spec/jobTemplate/spec/template/spec/nodeSelector/color",
-                value: "orange"
+                path: "/spec/jobTemplate/spec/template/spec/nodeSelector/kaas.infomaniak.cloud~1instance-pool",
+                value: parse_json(ns.metadata.annotations.'tractor.scout.ch/instance-pool')
               }
             ]
           ) : []
