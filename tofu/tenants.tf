@@ -1,6 +1,6 @@
 
 module "t_whoami" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/tenant?ref=a6f394bf059e47b6b5bcf3a0264e88bed0c93f38" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/tenant?ref=70ec554132e5006fc940024249d8f515796ff8cc" # main
 
   cluster_config_repository = module.flux.config_repository
   cluster_name              = local.cluster_name
@@ -11,7 +11,7 @@ module "t_whoami" {
 }
 
 module "ns_pbs_pfadi_finder_midata_adapter_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/namespace?ref=a6f394bf059e47b6b5bcf3a0264e88bed0c93f38" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/namespace?ref=70ec554132e5006fc940024249d8f515796ff8cc" # main
 
   name = "pbs-pfadi-finder-midata-adapter"
 
