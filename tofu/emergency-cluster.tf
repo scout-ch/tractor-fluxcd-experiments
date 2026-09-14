@@ -23,7 +23,7 @@ module "kaas_emergency" {
 }
 
 module "flux_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=b2bc0cf6e9fbddd6c60e9f76953f112887f253b7" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/flux?ref=a3d41bd10a09b380fcf9e8c16a875e607a2a9a5d" # main
 
   cluster_name = "tractor-k8s-emergency"
   github_repository = {
@@ -38,7 +38,7 @@ module "flux_kaas_emergency" {
 }
 
 module "infrastructure_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=b2bc0cf6e9fbddd6c60e9f76953f112887f253b7" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cluster_infrastructure?ref=a3d41bd10a09b380fcf9e8c16a875e607a2a9a5d" # main
 
   cluster_config_repository = module.flux_kaas_emergency.config_repository
   cluster_config_path       = module.flux_kaas_emergency.cluster_config_path
