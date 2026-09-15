@@ -11,7 +11,7 @@ runs:
     - name: Install OpenTofu
       uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2
       with:
-        tofu_version: 1.11.6
+        tofu_version: 1.12.6
 
     - uses: de-vri-es/setup-git-credentials@5dd446b3857806f44ea73acf83c193190a385d63 # v2
       with:
