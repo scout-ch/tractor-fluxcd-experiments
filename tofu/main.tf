@@ -17,11 +17,11 @@ terraform {
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "4.4.1"
+      version = "4.4.2"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "3.3.0"
+      version = "3.4.0"
     }
     openstack = {
       source  = "terraform-provider-openstack/openstack"
