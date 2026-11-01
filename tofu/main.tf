@@ -9,7 +9,7 @@ terraform {
     }
     flux = {
       source  = "fluxcd/flux"
-      version = "1.9.6"
+      version = "1.10.0"
     }
     github = {
       source  = "integrations/github"
@@ -17,11 +17,11 @@ terraform {
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "4.4.1"
+      version = "4.4.2"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "3.3.0"
+      version = "3.4.0"
     }
     openstack = {
       source  = "terraform-provider-openstack/openstack"
