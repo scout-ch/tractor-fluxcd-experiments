@@ -20,9 +20,8 @@ jobs:
       PGPASSWORD: ${{ secrets.PGPASSWORD }}
       INFOMANIAK_TOKEN: ${{ secrets.INFOMANIAK_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
-      OS_APPLICATION_CREDENTIAL_NAME: ${{ secrets.OS_APPLICATION_CREDENTIAL_NAME }}
-      OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
+      OS_USERNAME: ${{ vars.OS_USERNAME }}
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -42,9 +41,8 @@ jobs:
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           INFOMANIAK_TOKEN: ${{ secrets.INFOMANIAK_TOKEN }}
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-          OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
-          OS_APPLICATION_CREDENTIAL_NAME: ${{ secrets.OS_APPLICATION_CREDENTIAL_NAME }}
-          OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
+          OS_USERNAME: ${{ vars.OS_USERNAME }}
+          OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
 
       - name: Annotate Run
         if: success() || failure()
@@ -68,9 +66,8 @@ jobs:
       PGPASSWORD: ${{ secrets.PGPASSWORD }}
       INFOMANIAK_TOKEN: ${{ secrets.INFOMANIAK_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
-      OS_APPLICATION_CREDENTIAL_NAME: ${{ secrets.OS_APPLICATION_CREDENTIAL_NAME }}
-      OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
+      OS_USERNAME: ${{ vars.OS_USERNAME }}
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -109,6 +106,5 @@ jobs:
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           INFOMANIAK_TOKEN: ${{ secrets.INFOMANIAK_TOKEN }}
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-          OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
-          OS_APPLICATION_CREDENTIAL_NAME: ${{ secrets.OS_APPLICATION_CREDENTIAL_NAME }}
-          OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
+          OS_USERNAME: ${{ vars.OS_USERNAME }}
+          OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
