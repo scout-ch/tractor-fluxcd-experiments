@@ -56,7 +56,9 @@
   "platformAutomerge": true,
   "prHourlyLimit": 0,
   "rebaseWhen": "behind-base-branch",
-  "dependencyDashboard": false,
+  "dependencyDashboard": {
+    "enabled": false,
+  },
   "pre-commit": {
     "enabled": true
   },
