@@ -10,43 +10,43 @@ resource "github_repository" "flux-config" {
 }
 
 module "gateway_api_crds" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/gateway_api_crds?ref=468abe437b6ac63f732cb9e65377ea31176088ae" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/gateway_api_crds?ref=148a8837b75cb393244ea4c13af2b3003ef2cd8a" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "traefik" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=468abe437b6ac63f732cb9e65377ea31176088ae" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/traefik?ref=148a8837b75cb393244ea4c13af2b3003ef2cd8a" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "cert_manager" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=468abe437b6ac63f732cb9e65377ea31176088ae" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/cert_manager?ref=148a8837b75cb393244ea4c13af2b3003ef2cd8a" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "metrics_server" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/metrics_server?ref=468abe437b6ac63f732cb9e65377ea31176088ae" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/metrics_server?ref=148a8837b75cb393244ea4c13af2b3003ef2cd8a" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "velero" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/velero?ref=468abe437b6ac63f732cb9e65377ea31176088ae" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/velero?ref=148a8837b75cb393244ea4c13af2b3003ef2cd8a" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "external_snapshotter" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/external_snapshotter?ref=468abe437b6ac63f732cb9e65377ea31176088ae" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/external_snapshotter?ref=148a8837b75cb393244ea4c13af2b3003ef2cd8a" # main
 
   github_repository = module.flux.config_repository
 }
 
 module "kyverno" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/kyverno?ref=468abe437b6ac63f732cb9e65377ea31176088ae" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/kyverno?ref=148a8837b75cb393244ea4c13af2b3003ef2cd8a" # main
 
   github_repository = module.flux.config_repository
 }
