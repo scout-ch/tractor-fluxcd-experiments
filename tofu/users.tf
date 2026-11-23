@@ -1,5 +1,5 @@
 module "u_clever" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=aba5643d470fdbde7c1a38b8628d8882f1d1995b" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=22dcf209014b9ecf05c374da468e354874193963" # main
 
   username          = "clever"
   default_namespace = null
@@ -8,7 +8,7 @@ module "u_clever" {
 }
 
 module "u_clever_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=aba5643d470fdbde7c1a38b8628d8882f1d1995b" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=22dcf209014b9ecf05c374da468e354874193963" # main
 
   username          = "clever"
   default_namespace = null
@@ -21,7 +21,7 @@ module "u_clever_kaas_emergency" {
 }
 
 module "u_nano_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=aba5643d470fdbde7c1a38b8628d8882f1d1995b" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=22dcf209014b9ecf05c374da468e354874193963" # main
 
   username          = "nano"
   default_namespace = null
@@ -34,7 +34,7 @@ module "u_nano_kaas_emergency" {
 }
 
 module "u_floh_kaas_emergency" {
-  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=aba5643d470fdbde7c1a38b8628d8882f1d1995b" # main
+  source = "git::ssh://git@github.com/scout-ch/tractor-k8s-tenants.git//tofu/modules/user?ref=22dcf209014b9ecf05c374da468e354874193963" # main
 
   username          = "floh"
   default_namespace = null
